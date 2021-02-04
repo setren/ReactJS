@@ -1,0 +1,77 @@
+[
+  {
+    "nama": "Kaos",
+    "detail": "Kaos distro dalam negeri kualitas wahid",
+    "harga": "120.000"
+  },
+  {
+    "nama": "Celana",
+    "detail": "Celana distro dalam negeri kualitas wahid",
+    "harga": "300.000"
+  },
+  {
+    "nama": "Jaket",
+    "detail": "Jaket distro dalam negeri kualitas wahid",
+    "harga": "600.000"
+  },
+  {
+    "nama": "Sweater",
+    "detail": "Sweater distro dalam negeri kualitas wahid",
+    "harga": "250.000"
+  },
+  {
+    "nama": "Gamis",
+    "detail": "Gamis distro dalam negeri kualitas wahid",
+    "harga": "800.000"
+  },
+  {
+    "nama": "PSH",
+    "detail": "PSH distro dalam negeri kualitas wahid",
+    "harga": "1.000.000"
+  },
+  {
+    "nama": "Kerudung",
+    "detail": "Kerudung distro dalam negeri kualitas wahid",
+    "harga": "250.000"
+  },
+  {
+    "nama": "Koko",
+    "detail": "Koko distro dalam negeri kualitas wahid",
+    "harga": "450.000"
+  },
+  {
+    "nama": "Songkok",
+    "detail": "Songkok distro dalam negeri kualitas wahid",
+    "harga": "150.000"
+  },
+  {
+    "nama": "Rukuh",
+    "detail": "Rukuh distro dalam negeri kualitas wahid",
+    "harga": "500.000"
+  },
+  {
+    "nama": "Kemeja",
+    "detail": "Kemeja distro dalam negeri kualitas wahid",
+    "harga": "950.000"
+  },
+  {
+    "nama": "Dasi",
+    "detail": "Dasi distro dalam negeri kualitas wahid",
+    "harga": "75.000"
+  },
+  {
+    "nama": "Topi",
+    "detail": "Topi distro dalam negeri kualitas wahid",
+    "harga": "150.000"
+  },
+  {
+    "nama": "Sarung",
+    "detail": "Sarung distro dalam negeri kualitas wahid",
+    "harga": "250.000"
+  },
+  {
+    "nama": "Peci",
+    "detail": "Peci distro dalam negeri kualitas wahid",
+    "harga": "150.000"
+  }
+]
