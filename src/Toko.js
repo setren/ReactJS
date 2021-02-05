@@ -9,6 +9,7 @@ class Home extends Component {
     detailProduct,
     Summary: [],
     show: false,
+    Total: ''
   }
   componentDidMount() {
     const summaryLocal = localStorage.getItem('SaveSummary')
@@ -36,7 +37,7 @@ class Home extends Component {
     // mengecek apakah di dalam keranjang sudah ada item apa belum
     const i = Summary.findIndex(s => s.nama === item.nama)
     if (i < 0) {
-      Summary.push({ nama: item.nama, jumlah: 1, total: item.harga })
+      Summary.push({ nama: item.nama, harga: item.harga, jumlah: 1, total: item.harga })
     } else {
       Summary[i].harga = item.harga
       Summary[i].jumlah = Summary[i].jumlah + 1
@@ -47,18 +48,32 @@ class Home extends Component {
   }
   onRemove = (item) => {
     const Summary = this.state.Summary
-    if (Summary.includes(item)) {
-      const index = Summary.indexOf(item)
-      Summary.splice(index, 1)
-      this.setState({ Summary: Summary })
+    // mengecek apakah di dalam keranjang sudah ada item apa belum
+    const i = Summary.findIndex(s => s.nama === item.nama)
+    if (Summary[i].jumlah <= 1) {
+      Summary.splice(i, 1)
     } else {
-      alert('Silakan tambahkan produk')
+      Summary[i].harga = item.harga
+      Summary[i].jumlah = Summary[i].jumlah - 1
+      Summary[i].total = Summary[i].jumlah * item.harga
     }
+    this.setState({ Summary: Summary })
+    localStorage.setItem('SaveSummary', JSON.stringify(Summary))
   }
   onReset = () => {
     this.setState({ Summary: [] })
     localStorage.removeItem('SaveSummary')
   }
+
+  onTotal = () => {
+    const total = this.state.Summary
+    const sumOfSummary = total.reduce((sum, currentValue) => {
+      return sum + currentValue.total;
+    }, 0);
+    this.setState({ Total: sumOfSummary })
+  }
+
+
   render() {
     return (
       <Container fluid>
@@ -80,15 +95,15 @@ class Home extends Component {
           </Col>
           <Col sm={4}>
             <br />
-            {this.state.Summary === null ? this.setState({ Summary: [] }) : <Summary Summary={this.state.Summary} />}
+            {this.state.Summary === null ? this.setState({ Summary: [] }) : <Summary Summary={this.state.Summary} onRemove={this.onRemove} />}
             <ButtonGroup aria-label="Basic example">
-              <Button onClick={() => this.handleShow()} variant="primary">Proses</Button>
+              <Button onClick={() => { this.handleShow(); this.onTotal() }} variant="primary">Proses</Button>
               <Button onClick={() => this.onReset()} variant="secondary">Hapus</Button>
             </ButtonGroup>
-            {this.state.Summary === null ? this.setState({ Summary: [] }) : <ModalSummary show={this.state.show} summary={this.state.Summary} handleShow={this.handleShow} handleClose={this.handleClose} />}
+            {this.state.Summary === null ? this.setState({ Summary: [] }) : <ModalSummary show={this.state.show} summary={this.state.Summary} handleShow={this.handleShow} handleClose={this.handleClose} Total={this.state.Total} />}
           </Col>
         </Row>
-      </Container>
+      </Container >
     )
   }
 }
@@ -109,11 +124,9 @@ class Product extends Component {
                 {item.detail}
               </Card.Text>
               <Card.Text>
-                <strong>Rp {item.harga}</strong>
+                <strong>Rp {item.harga.toLocaleString()}</strong>
               </Card.Text>
-              <ButtonGroup aria-label="Basic example">
-                <Button onClick={() => this.props.onAdd(item)} variant="primary">Tambah</Button>
-              </ButtonGroup>
+              <Button onClick={() => this.props.onAdd(item)} variant="primary">Tambahkan</Button>
             </Card.Body>
           </Card>
         )}
@@ -142,10 +155,10 @@ class Summary extends Component {
               <td>{i + 1}</td>
               <td>{item.nama}</td>
               <td>{item.jumlah}</td>
-              <td>Rp {item.harga}</td>
-              <td>Rp {item.total}</td>
+              <td>Rp {item.harga.toLocaleString()}</td>
+              <td>Rp {item.total.toLocaleString()}</td>
               <td>
-                <Button onClick={() => console.log(item)} variant="secondary">Batal</Button>
+                <Button onClick={() => this.props.onRemove(item)} variant="secondary">Kurangi</Button>
               </td>
             </tr>
           )}
@@ -179,8 +192,8 @@ class ModalSummary extends Component {
                   <td>{i + 1}</td>
                   <td>{item.nama}</td>
                   <td>{item.jumlah}</td>
-                  <td>Rp {item.harga}</td>
-                  <td>Rp {item.total}</td>
+                  <td>Rp {item.harga.toLocaleString()}</td>
+                  <td>Rp {item.total.toLocaleString()}</td>
                 </tr>
               )
               }
@@ -191,7 +204,7 @@ class ModalSummary extends Component {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><strong>Rp </strong></td>
+                <td><strong>Rp {this.props.Total.toLocaleString()}</strong></td>
               </tr>
             </tbody>
           </Table>
