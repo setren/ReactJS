@@ -1,20 +1,26 @@
 import { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Card, CardDeck, Button, Navbar, ButtonGroup, Container, Row, Col, Table, Modal, CardImg } from 'react-bootstrap';
+import { Card, CardDeck, Button, Navbar, ButtonGroup, Container, Row, Col, Table, Modal } from 'react-bootstrap';
 import './Toko.css'
 import detailProduct from './product.json'
 
 class Home extends Component {
   state = {
     detailProduct,
-    Summary: JSON.parse(localStorage.getItem('Summary')),
-    show: false
+    Summary: [],
+    show: false,
   }
   componentDidMount() {
-    if (this.state.Summary === null) {
-      this.setState({ Summary: [] })
-    }
+    const summaryLocal = localStorage.getItem('SaveSummary')
+    const Summary = summaryLocal ? JSON.parse(summaryLocal) : []
+    this.setState({ Summary })
     console.log("componen did mount")
+
+    // const x = new Object()
+    // x['buah'] = 'mangga'
+    // x['binatang'] = 'domba'
+    // delete x.binatang
+    // console.log(Object.keys(x))
   }
   componentDidUpdate() {
     console.log("componen did update")
@@ -27,26 +33,35 @@ class Home extends Component {
   }
   onAdd = (item) => {
     const Summary = this.state.Summary
-    Summary.push(item)
-    localStorage.setItem('Summary', JSON.stringify(Summary))
+    // mengecek apakah di dalam keranjang sudah ada item apa belum
+    const i = Summary.findIndex(s => s.nama === item.nama)
+    if (i < 0) {
+      Summary.push({ nama: item.nama, jumlah: 1, total: item.harga })
+    } else {
+      Summary[i].harga = item.harga
+      Summary[i].jumlah = Summary[i].jumlah + 1
+      Summary[i].total = Summary[i].jumlah * item.harga
+    }
     this.setState({ Summary: Summary })
+    localStorage.setItem('SaveSummary', JSON.stringify(Summary))
   }
-
-  onDelete = (item) => {
+  onRemove = (item) => {
     const Summary = this.state.Summary
-    if (JSON.stringify(Summary).includes(item.nama)) {
+    if (Summary.includes(item)) {
       const index = Summary.indexOf(item)
       Summary.splice(index, 1)
-      localStorage.setItem('Summary', JSON.stringify(Summary))
       this.setState({ Summary: Summary })
     } else {
       alert('Silakan tambahkan produk')
-      localStorage.setItem('Summary', JSON.stringify(Summary))
     }
+  }
+  onReset = () => {
+    this.setState({ Summary: [] })
+    localStorage.removeItem('SaveSummary')
   }
   render() {
     return (
-      <Container>
+      <Container fluid>
         <Row>
           <Col sm={8}>
             <Navbar bg="dark" variant="dark">
@@ -61,13 +76,16 @@ class Home extends Component {
         </Row>
         <Row>
           <Col sm={8}>
-            <Product detailProduct={this.state.detailProduct} onAdd={this.onAdd} onDelete={this.onDelete} />
+            <Product detailProduct={this.state.detailProduct} onAdd={this.onAdd} />
           </Col>
           <Col sm={4}>
             <br />
-            <Summary Summary={this.state.Summary} />
-            <Button onClick={this.handleShow}>Checkout</Button>
-            <ModalSummary show={this.state.show} handleShow={this.handleShow} handleClose={this.handleClose} />
+            {this.state.Summary === null ? this.setState({ Summary: [] }) : <Summary Summary={this.state.Summary} />}
+            <ButtonGroup aria-label="Basic example">
+              <Button onClick={() => this.handleShow()} variant="primary">Proses</Button>
+              <Button onClick={() => this.onReset()} variant="secondary">Hapus</Button>
+            </ButtonGroup>
+            {this.state.Summary === null ? this.setState({ Summary: [] }) : <ModalSummary show={this.state.show} summary={this.state.Summary} handleShow={this.handleShow} handleClose={this.handleClose} />}
           </Col>
         </Row>
       </Container>
@@ -95,7 +113,6 @@ class Product extends Component {
               </Card.Text>
               <ButtonGroup aria-label="Basic example">
                 <Button onClick={() => this.props.onAdd(item)} variant="primary">Tambah</Button>
-                <Button onClick={() => this.props.onDelete(item)} variant="secondary">Hapus</Button>
               </ButtonGroup>
             </Card.Body>
           </Card>
@@ -116,18 +133,22 @@ class Summary extends Component {
             <th>Kuantitas</th>
             <th>Harga</th>
             <th>Total</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          {this.props.Summary !== null ? this.props.Summary.map((item, i) =>
+          {this.props.Summary.map((item, i) =>
             <tr key={i}>
               <td>{i + 1}</td>
               <td>{item.nama}</td>
-              <td>{1}</td>
-              <td>{item.harga}</td>
-              <td>{item.harga}</td>
+              <td>{item.jumlah}</td>
+              <td>Rp {item.harga}</td>
+              <td>Rp {item.total}</td>
+              <td>
+                <Button onClick={() => console.log(item)} variant="secondary">Batal</Button>
+              </td>
             </tr>
-          ) : []}
+          )}
         </tbody>
       </Table>
     )
@@ -139,17 +160,48 @@ class ModalSummary extends Component {
     return (
       <Modal show={this.props.show} onHide={this.props.handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Order Summary</Modal.Title>
+          <Modal.Title>Ringkasan Pesanan</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Summary />
+          <Table responsive="sm">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Produk</th>
+                <th>Kuantitas</th>
+                <th>Harga</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.summary.map((item, i) =>
+                <tr key={i}>
+                  <td>{i + 1}</td>
+                  <td>{item.nama}</td>
+                  <td>{item.jumlah}</td>
+                  <td>Rp {item.harga}</td>
+                  <td>Rp {item.total}</td>
+                </tr>
+              )
+              }
+            </tbody>
+            <tbody>
+              <tr >
+                <td><strong>Total</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>Rp </strong></td>
+              </tr>
+            </tbody>
+          </Table>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={this.props.handleClose}>
-            Close
-          </Button>
           <Button variant="primary" onClick={this.props.handleClose}>
-            Checkout
+            Lanjutkan
+          </Button>
+          <Button variant="secondary" onClick={this.props.handleClose}>
+            Batal
           </Button>
         </Modal.Footer>
       </Modal>
