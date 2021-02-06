@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, CardDeck, Button, Navbar, ButtonGroup, Container, Row, Col, Table, Modal } from 'react-bootstrap';
 import './Toko.css'
 import detailProduct from './product.json'
+import swal from 'sweetalert';
+
 
 class Home extends Component {
   state = {
@@ -45,6 +47,11 @@ class Home extends Component {
     }
     this.setState({ Summary: Summary })
     localStorage.setItem('SaveSummary', JSON.stringify(Summary))
+    swal({
+      title: "Selamat!",
+      text: "Produk berhasil ditambahkan!",
+      icon: "success",
+    });
   }
   onRemove = (item) => {
     const Summary = this.state.Summary
