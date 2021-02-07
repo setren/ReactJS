@@ -94,10 +94,16 @@ class Home extends Component {
             <br />
             {<Summary Summary={this.state.Summary} onRemove={this.onRemove} onAdd={this.onAdd} />}
             <ButtonGroup aria-label="Basic example">
-              <Button onClick={() => { this.handleShow(); this.onTotal() }} variant="primary">Proses</Button>
+              <Button onClick={this.state.Summary.length > 0 ? () => { this.handleShow(); this.onTotal() } : () =>
+                swal({
+                  title: "Silakan tambahkan produk",
+                  icon: "error",
+                })} variant="primary">
+                Proses
+              </Button>
               <Button onClick={() => this.onReset()} variant="secondary">Hapus</Button>
             </ButtonGroup>
-            {<ModalSummary show={this.state.show} summary={this.state.Summary} handleShow={this.handleShow} handleClose={this.handleClose} Total={this.state.Total} />}
+            {<ModalSummary show={this.state.show} summary={this.state.Summary} handleShow={this.handleShow} handleClose={this.handleClose} Total={this.state.Total} onReset={this.onReset} />}
           </Col>
         </Row>
       </Container >
@@ -118,6 +124,7 @@ class Product extends Component {
               swal({
                 title: "Produk berhasil ditambahkan",
                 icon: "success",
+                text: item.nama
               });
             }}>
               <Card.Body>
@@ -224,9 +231,10 @@ class ModalSummary extends Component {
         <Modal.Footer>
           <Button variant="primary" onClick={() => {
             this.props.handleClose();
+            this.props.onReset()
             swal({
               title: "Pemesanan berhasil",
-              text: "Pembayaran sedang diproses",
+              text: "Pesanan sedang diproses",
               icon: "success",
             });
           }}>
@@ -240,3 +248,5 @@ class ModalSummary extends Component {
     )
   }
 }
+
+// 5210 8382 1159 9772
