@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Routing from './Routing';
 import './index.css';
-// import App from './App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Home from './Toko';
+// import Home from './Toko';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Home />
-  </React.StrictMode>,
+  // <React.StrictMode>
+  < Routing />,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

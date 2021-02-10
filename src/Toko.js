@@ -1,14 +1,105 @@
 import { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Card, CardDeck, Button, Navbar, ButtonGroup, Container, Row, Col, Table, Modal } from 'react-bootstrap';
+import { Card, CardDeck, Button, ButtonGroup, Container, Row, Col, Table, Modal } from 'react-bootstrap';
 import './Toko.css'
-import detailProduct from './product.json'
+// import detailProduct from './product.json'
 import swal from 'sweetalert';
 
 
 class Home extends Component {
   state = {
-    detailProduct,
+    detailProduct: [
+      {
+        "nama": "Kaos",
+        "detail": "Kaos distro dalam negeri kualitas wahid",
+        "harga": 120000,
+        "gambar": "./gambar/Kaos.jpg"
+      },
+      {
+        "nama": "Celana",
+        "detail": "Celana distro dalam negeri kualitas wahid",
+        "harga": 300000,
+        "gambar": "./gambar/Celana.jpg"
+      },
+      {
+        "nama": "Jaket",
+        "detail": "Jaket distro dalam negeri kualitas wahid",
+        "harga": 600000,
+        "gambar": "./gambar/Jaket.jpg"
+      },
+      {
+        "nama": "Sweater",
+        "detail": "Sweater distro dalam negeri kualitas wahid",
+        "harga": 250000,
+        "gambar": "./gambar/Sweater.jpg"
+      },
+      {
+        "nama": "Gamis",
+        "detail": "Gamis distro dalam negeri kualitas wahid",
+        "harga": 800000,
+        "gambar": "./gambar/Gamis.jpg"
+      },
+      {
+        "nama": "PSH",
+        "detail": "PSH distro dalam negeri kualitas wahid",
+        "harga": 1000000,
+        "gambar": "./gambar/PSH.jpg"
+      },
+      {
+        "nama": "Kerudung",
+        "detail": "Kerudung distro dalam negeri kualitas wahid",
+        "harga": 250000,
+        "gambar": "./gambar/Kerudung.jpg"
+      },
+      {
+        "nama": "Koko",
+        "detail": "Koko distro dalam negeri kualitas wahid",
+        "harga": 450000,
+        "gambar": "./gambar/Koko.jpg"
+      },
+      {
+        "nama": "Songkok",
+        "detail": "Songkok distro dalam negeri kualitas wahid",
+        "harga": 150000,
+        "gambar": "./gambar/Songkok.jpg"
+      },
+      {
+        "nama": "Rukuh",
+        "detail": "Rukuh distro dalam negeri kualitas wahid",
+        "harga": 500000,
+        "gambar": "./gambar/Rukuh.jpg"
+      },
+      {
+        "nama": "Kemeja",
+        "detail": "Kemeja distro dalam negeri kualitas wahid",
+        "harga": 950000,
+        "gambar": "./gambar/Kemeja.jpg"
+      },
+      {
+        "nama": "Dasi",
+        "detail": "Dasi distro dalam negeri kualitas wahid",
+        "harga": 75000,
+        "gambar": "./gambar/Dasi.jpg"
+      },
+      {
+        "nama": "Topi",
+        "detail": "Topi distro dalam negeri kualitas wahid",
+        "harga": 150000,
+        "gambar": "./gambar/Topi.jpg"
+      },
+      {
+        "nama": "Sarung",
+        "detail": "Sarung distro dalam negeri kualitas wahid",
+        "harga": 250000,
+        "gambar": "./gambar/Sarung.jpg"
+      },
+      {
+        "nama": "Peci",
+        "detail": "Peci distro dalam negeri kualitas wahid",
+        "harga": 150000,
+        "gambar": "./gambar/Peci.jpg"
+      }
+    ],
     Summary: [],
     show: false,
     Total: ''
@@ -66,7 +157,6 @@ class Home extends Component {
     this.setState({ Summary: [] })
     localStorage.removeItem('SaveSummary')
   }
-
   onTotal = () => {
     const total = this.state.Summary
     const sumOfSummary = total.reduce((sum, currentValue) => {
@@ -75,17 +165,9 @@ class Home extends Component {
     this.setState({ Total: sumOfSummary })
   }
 
-
   render() {
     return (
       <Container fluid>
-        <Row>
-          <Col>
-            <Navbar bg="dark" variant="dark">
-              <Navbar.Brand href="#home">E-Toko</Navbar.Brand>
-            </Navbar>
-          </Col>
-        </Row>
         <Row>
           <Col sm={8}>
             <Product detailProduct={this.state.detailProduct} onAdd={this.onAdd} />
