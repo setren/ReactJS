@@ -55,6 +55,7 @@ export default function Routing() {
           </Navbar>
         </Col>
       </Row>
+      <br />
       <Switch>
         <Route exact path="/" component={Home} />
         {/* <Route exact path="/" ><Home/></Route> */}

@@ -2,14 +2,14 @@ import { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, CardDeck, Button, ButtonGroup, Container, Row, Col, Table, Modal } from 'react-bootstrap';
 import './Toko.css'
-// import detailProduct from './product.json'
+import detailProduct from './product.json'
 import swal from 'sweetalert';
 
 
 class Home extends Component {
   state = {
-    // detailProduct,
-    detailProduct: JSON.parse(localStorage.getItem('DetailProduct')),
+    detailProduct,
+    // detailProduct: JSON.parse(localStorage.getItem('DetailProduct')),
     Summary: [],
     show: false,
     Total: ''

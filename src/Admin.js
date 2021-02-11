@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Button, Table, Modal, Form } from 'react-bootstrap';
+import { Button, Table, Modal, Form, Row, Col, Container } from 'react-bootstrap';
 import './Admin.css'
 
 class Admin extends Component {
@@ -41,31 +41,49 @@ class Admin extends Component {
   }
   render() {
     return (
-      <div>
-        <Table striped bordered hover variant="dark" responsive="sm">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Nama</th>
-              <th>Detail</th>
-              <th>Harga</th>
-              <th>Edit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.DetailProduct.map((item, i) =>
-              <tr key={i}>
-                <td>{i + 1}</td>
-                <td>{item.nama}</td>
-                <td>{item.detail}</td>
-                <td>Rp {item.harga.toLocaleString()}</td>
-                <td><Button onClick={(e) => this.onEdit(e, item)} variant="dark">edit</Button></td>
-              </tr>
-            )}
-          </tbody>
-        </Table>
+      <Container fluid>
+        <Row>
+          <Col xs={6} md={4}>
+            <h2>TAMBAH PRODUK</h2>
+            <Form >
+              <Form.Group >
+                <Form.Control name="id" />
+                <Form.Control name="nama" />
+                <Form.Control name="detail" />
+                <Form.Control name="harga" />
+              </Form.Group>
+              <Button variant="dark" type="submit">
+                Tambahkan
+            </Button>
+            </Form>
+          </Col>
+          <Col xs={12} md={8}>
+            <Table striped bordered hover variant="dark" responsive="sm">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama</th>
+                  <th>Detail</th>
+                  <th>Harga</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.DetailProduct.map((item, i) =>
+                  <tr key={i}>
+                    <td>{i + 1}</td>
+                    <td>{item.nama}</td>
+                    <td>{item.detail}</td>
+                    <td>Rp {item.harga.toLocaleString()}</td>
+                    <td><Button onClick={(e) => this.onEdit(e, item)} variant="dark">edit</Button></td>
+                  </tr>
+                )}
+              </tbody>
+            </Table>
+          </Col>
+        </Row>
         <ModalAdmin DetailProduct={this.state.DetailProduct} showModalAdminIndex={this.state.showModalAdminIndex} showModalAdmin={this.state.showModalAdmin} handleShow={this.handleShow} handleClose={this.handleClose} onSubmit={this.onSubmit} />
-      </div >
+      </Container>
     )
   }
 }
