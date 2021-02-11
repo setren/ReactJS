@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Card } from "react-bootstrap";
 
 class Login extends Component {
   onSubmit(e) {
@@ -12,17 +12,26 @@ class Login extends Component {
     }
   }
   render() {
-    console.log(this.props.history)
+    // console.log(this.props.history)
     return (
-      <Form onSubmit={(e) => this.onSubmit(e)}>
-        <Form.Group>
-          <Form.Control type="text" placeholder="Enter username" />
-          <Form.Control type="password" placeholder="Password" />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>)
+      <Card style={{ width: '18rem' }} className="text-center">
+        <Card.Body>
+          <Card.Title>Login</Card.Title>
+          <Card.Text>
+            You need to log in before accessing admin page
+          </Card.Text>
+          <Form onSubmit={(e) => this.onSubmit(e)}>
+            <Form.Group>
+              <Form.Control type="text" placeholder="Enter username" />
+              <Form.Control type="password" placeholder="Password" />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              login
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
+    )
   }
 }
 

@@ -8,98 +8,8 @@ import swal from 'sweetalert';
 
 class Home extends Component {
   state = {
-    detailProduct: [
-      {
-        "nama": "Kaos",
-        "detail": "Kaos distro dalam negeri kualitas wahid",
-        "harga": 120000,
-        "gambar": "./gambar/Kaos.jpg"
-      },
-      {
-        "nama": "Celana",
-        "detail": "Celana distro dalam negeri kualitas wahid",
-        "harga": 300000,
-        "gambar": "./gambar/Celana.jpg"
-      },
-      {
-        "nama": "Jaket",
-        "detail": "Jaket distro dalam negeri kualitas wahid",
-        "harga": 600000,
-        "gambar": "./gambar/Jaket.jpg"
-      },
-      {
-        "nama": "Sweater",
-        "detail": "Sweater distro dalam negeri kualitas wahid",
-        "harga": 250000,
-        "gambar": "./gambar/Sweater.jpg"
-      },
-      {
-        "nama": "Gamis",
-        "detail": "Gamis distro dalam negeri kualitas wahid",
-        "harga": 800000,
-        "gambar": "./gambar/Gamis.jpg"
-      },
-      {
-        "nama": "PSH",
-        "detail": "PSH distro dalam negeri kualitas wahid",
-        "harga": 1000000,
-        "gambar": "./gambar/PSH.jpg"
-      },
-      {
-        "nama": "Kerudung",
-        "detail": "Kerudung distro dalam negeri kualitas wahid",
-        "harga": 250000,
-        "gambar": "./gambar/Kerudung.jpg"
-      },
-      {
-        "nama": "Koko",
-        "detail": "Koko distro dalam negeri kualitas wahid",
-        "harga": 450000,
-        "gambar": "./gambar/Koko.jpg"
-      },
-      {
-        "nama": "Songkok",
-        "detail": "Songkok distro dalam negeri kualitas wahid",
-        "harga": 150000,
-        "gambar": "./gambar/Songkok.jpg"
-      },
-      {
-        "nama": "Rukuh",
-        "detail": "Rukuh distro dalam negeri kualitas wahid",
-        "harga": 500000,
-        "gambar": "./gambar/Rukuh.jpg"
-      },
-      {
-        "nama": "Kemeja",
-        "detail": "Kemeja distro dalam negeri kualitas wahid",
-        "harga": 950000,
-        "gambar": "./gambar/Kemeja.jpg"
-      },
-      {
-        "nama": "Dasi",
-        "detail": "Dasi distro dalam negeri kualitas wahid",
-        "harga": 75000,
-        "gambar": "./gambar/Dasi.jpg"
-      },
-      {
-        "nama": "Topi",
-        "detail": "Topi distro dalam negeri kualitas wahid",
-        "harga": 150000,
-        "gambar": "./gambar/Topi.jpg"
-      },
-      {
-        "nama": "Sarung",
-        "detail": "Sarung distro dalam negeri kualitas wahid",
-        "harga": 250000,
-        "gambar": "./gambar/Sarung.jpg"
-      },
-      {
-        "nama": "Peci",
-        "detail": "Peci distro dalam negeri kualitas wahid",
-        "harga": 150000,
-        "gambar": "./gambar/Peci.jpg"
-      }
-    ],
+    // detailProduct,
+    detailProduct: JSON.parse(localStorage.getItem('DetailProduct')),
     Summary: [],
     show: false,
     Total: ''
@@ -109,6 +19,8 @@ class Home extends Component {
     const Summary = summaryLocal ? JSON.parse(summaryLocal) : []
     this.setState({ Summary })
     console.log("componen did mount")
+    localStorage.setItem('DetailProduct', JSON.stringify(this.state.detailProduct))
+
 
     // const x = new Object()
     // x['buah'] = 'mangga'
@@ -166,7 +78,7 @@ class Home extends Component {
   }
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <Container fluid>
         <Row>
@@ -181,7 +93,7 @@ class Home extends Component {
                 swal({
                   title: "Silakan tambahkan produk",
                   icon: "error",
-                })} variant="primary">
+                })} variant="dark">
                 Proses
               </Button>
               <Button onClick={() => this.onReset()} variant="secondary">Hapus</Button>
@@ -200,29 +112,29 @@ class Product extends Component {
     return (
       <CardDeck>
         {this.props.detailProduct.map((item, i) =>
-          <Card bg="light" key={i}>
+          <Card bg="dark" text="light" key={i}>
             <Card.Img variant="top" src={item.gambar} />
-            <button onClick={() => {
+            <Card.Body>
+              < Card.Title>
+                <strong>{item.nama}</strong>
+              </Card.Title>
+              <Card.Text>
+                {item.detail}
+              </Card.Text>
+              <Card.Text>
+                <strong>Rp {item.harga.toLocaleString()}</strong>
+              </Card.Text>
+            </Card.Body>
+            <Button variant="secondary" onClick={() => {
               this.props.onAdd(item);
               swal({
-                title: "Produk berhasil ditambahkan",
+                title: "Produk ditambahkan",
                 icon: "success",
-                text: item.nama
+                text: item.nama + ': ' + 'Rp ' + item.harga.toLocaleString(),
               });
             }}>
-              <Card.Body>
-                < Card.Title>
-                  <strong>{item.nama}</strong>
-                </Card.Title>
-                <Card.Text>
-                  {item.detail}
-                </Card.Text>
-                <Card.Text>
-                  <strong>Rp {item.harga.toLocaleString()}</strong>
-                </Card.Text>
-                {/* <Button onClick={() => this.props.onAdd(item)} variant="primary">Tambahkan</Button> */}
-              </Card.Body>
-            </button>
+              Tambahkan keranjang
+            </Button>
           </Card>
         )}
       </CardDeck>
@@ -234,8 +146,8 @@ class Summary extends Component {
   render() {
     return (
       <div>
-        <p><strong>Keranjang : {this.props.Summary.length}</strong></p>
-        <Table responsive="sm">
+        <h2><strong>Keranjang : <Button variant="secondary">{this.props.Summary.length}</Button></strong></h2>
+        <Table striped bordered hover variant="dark" responsive="sm">
           <thead>
             <tr>
               <th>No</th>
@@ -312,7 +224,7 @@ class ModalSummary extends Component {
           </Table>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={() => {
+          <Button variant="dark" onClick={() => {
             this.props.handleClose();
             this.props.onReset()
             swal({

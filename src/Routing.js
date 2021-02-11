@@ -7,13 +7,13 @@ import {
 } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import Home from "./Toko";
-import { Row, Col, Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import { Row, Col, Navbar, Nav } from "react-bootstrap";
 import Login from "./Login";
 import Admin from "./Admin";
 
 // titik dua didalam deconstructor adalah alias
 const HarusLogin = ({ capo: Capo, ...props }) => {
-  const token = localStorage.getItem
+  const token = localStorage.getItem('token')
   return (
     <Route {...props} render={props2 => (
       token ?
@@ -52,10 +52,6 @@ export default function Routing() {
               <Nav.Link href="/admin">Admin</Nav.Link>
               <Nav.Link href="https://www.google.com/">Google</Nav.Link>
             </Nav>
-            <Form inline>
-              <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-              <Button variant="outline-info">Search</Button>
-            </Form>
           </Navbar>
         </Col>
       </Row>
