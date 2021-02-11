@@ -130,7 +130,7 @@ class Product extends Component {
               swal({
                 title: "Produk ditambahkan",
                 icon: "success",
-                text: item.nama + ': ' + 'Rp ' + item.harga.toLocaleString(),
+                text: item.nama + ': Rp ' + item.harga.toLocaleString(),
               });
             }}>
               Tambahkan keranjang
