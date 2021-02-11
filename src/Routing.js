@@ -46,7 +46,7 @@ export default function Routing() {
       <Row>
         <Col>
           <Navbar bg="dark" variant="dark">
-            <Navbar.Brand href="/">E Toko</Navbar.Brand>
+            <Navbar.Brand href="/">E-TOKO</Navbar.Brand>
             <Nav className="mr-auto">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/admin">Admin</Nav.Link>

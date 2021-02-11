@@ -2,34 +2,36 @@ import { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, CardDeck, Button, ButtonGroup, Container, Row, Col, Table, Modal } from 'react-bootstrap';
 import './Toko.css'
-import detailProduct from './product.json'
+import detailProducts from './product.json'
 import swal from 'sweetalert';
 
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    // Don't call this.setState() here!
+    // this.state = { counter: 0 };
+    // this.handleClick = this.handleClick.bind(this);
+    // localStorage.setItem('DetailProduct', JSON.stringify(detailProducts))
+    localStorage.setItem('DetailProduct', JSON.stringify(this.state.detailProducts))
+    console.log('konstruktor')
+
+  }
   state = {
-    detailProduct,
-    // detailProduct: JSON.parse(localStorage.getItem('DetailProduct')),
+    detailProducts,
+    detailProduct: JSON.parse(localStorage.getItem('DetailProduct')) || [],
     Summary: [],
     show: false,
     Total: ''
   }
   componentDidMount() {
-    const summaryLocal = localStorage.getItem('SaveSummary')
-    const Summary = summaryLocal ? JSON.parse(summaryLocal) : []
-    this.setState({ Summary })
-    console.log("componen did mount")
-    localStorage.setItem('DetailProduct', JSON.stringify(this.state.detailProduct))
-
+    console.log('kompenen did mount')
 
     // const x = new Object()
     // x['buah'] = 'mangga'
     // x['binatang'] = 'domba'
     // delete x.binatang
     // console.log(Object.keys(x))
-  }
-  componentDidUpdate() {
-    console.log("componen did update")
   }
   handleClose = () => {
     this.setState({ show: false })
@@ -146,7 +148,7 @@ class Summary extends Component {
   render() {
     return (
       <div>
-        <h2><strong>Keranjang : <Button variant="secondary">{this.props.Summary.length}</Button></strong></h2>
+        <h2><strong>Keranjang : <Button variant="dark">{this.props.Summary.length}</Button></strong></h2>
         <Table striped bordered hover variant="dark" responsive="sm">
           <thead>
             <tr>

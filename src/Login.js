@@ -4,11 +4,11 @@ import { Form, Button, Card } from "react-bootstrap";
 class Login extends Component {
   onSubmit(e) {
     e.preventDefault()
-    if (e.target[0].value === 'izul' && e.target[1].value === 'izul') {
-      localStorage.setItem('token', '1i2y36i71g2h3ki127t3yi12lujn3i1u23')
+    if (e.target[0].value === 'setren' && e.target[1].value === 'setren') {
+      localStorage.setItem('token', '378d66aa1a6b05a712a5fe64d77519e9')
       this.props.history.push('/admin')
     } else {
-      alert('user/pass salah!')
+      alert('Username/password salah!')
     }
   }
   render() {
