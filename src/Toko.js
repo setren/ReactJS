@@ -1,10 +1,9 @@
 import { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Card, CardDeck, Button, ButtonGroup, Container, Row, Col, Table, Modal } from 'react-bootstrap';
+import { Card, CardDeck, Button, ButtonGroup, Container, Row, Col, Table, Modal, Carousel } from 'react-bootstrap';
 import './Toko.css'
 import detailProducts from './product.json'
 import swal from 'sweetalert';
-
 
 class Home extends Component {
   constructor(props) {
@@ -80,9 +79,68 @@ class Home extends Component {
   }
 
   render() {
-    // console.log(this.props)
+    console.log('render')
     return (
-      <Container fluid>
+      <Container>
+        <br></br>
+        <Carousel>
+          <Carousel.Item interval={2000}>
+            <img
+              className="d-block w-100"
+              src="./carousels/carousel1.jpg"
+              alt="First slide"
+            />
+            <Carousel.Caption>
+              <h3>First slide label</h3>
+              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item interval={2000}>
+            <img
+              className="d-block w-100"
+              src="./carousels/carousel2.jpg"
+              alt="Third slide"
+            />
+            <Carousel.Caption>
+              <h3>Second slide label</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item interval={2000}>
+            <img
+              className="d-block w-100"
+              src="./carousels/carousel3.jpg"
+              alt="Third slide"
+            />
+            <Carousel.Caption>
+              <h3>Third slide label</h3>
+              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item interval={2000}>
+            <img
+              className="d-block w-100"
+              src="./carousels/carousel4.jpg"
+              alt="Fourth slide"
+            />
+            <Carousel.Caption>
+              <h3>Fourth slide label</h3>
+              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item interval={2000}>
+            <img
+              className="d-block w-100"
+              src="./carousels/carousel5.jpg"
+              alt="Fifth slide"
+            />
+            <Carousel.Caption>
+              <h3>Fifth slide label</h3>
+              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
+        <br></br>
         <Row>
           <Col sm={8}>
             <Product detailProduct={this.state.detailProduct} onAdd={this.onAdd} />
