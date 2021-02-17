@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import Home from "./Toko";
-import { Row, Col, Navbar, Nav } from "react-bootstrap";
+import { Row, Col, Navbar, Nav, Container } from "react-bootstrap";
 import Login from "./Login";
 import Admin from "./Admin";
 
@@ -43,18 +43,19 @@ const HarusLogin = ({ capo: Capo, ...props }) => {
 export default function Routing() {
   return (
     <Router history={createBrowserHistory()}>
-      <Row>
-        <Col>
-          <Navbar bg="dark" variant="dark">
-            <Navbar.Brand href="/">E-TOKO</Navbar.Brand>
-            <Nav className="mr-auto">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/admin">Admin</Nav.Link>
-              <Nav.Link href="https://www.google.com/">Google</Nav.Link>
-            </Nav>
-          </Navbar>
-        </Col>
-      </Row>
+      <Container fluid >
+        <Navbar bg="dark" variant="dark" className="justify-content-center">
+          <Nav.Item>
+            <Nav.Link href="/admin">Login</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Navbar variant="light">E-TOKO</Navbar>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/">Home</Nav.Link>
+          </Nav.Item>
+        </Navbar>
+      </Container>
       <br />
       <Switch>
         <Route exact path="/" component={Home} />
