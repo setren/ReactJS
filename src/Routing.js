@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import Home from "./Toko";
-import { Row, Col, Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import Login from "./Login";
 import Admin from "./Admin";
 

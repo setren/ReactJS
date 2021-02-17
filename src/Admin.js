@@ -90,7 +90,7 @@ class Admin extends Component {
                     <td>{i + 1}</td>
                     <td>{item.nama}</td>
                     <td>{item.detail}</td>
-                    <td>Rp {item.harga.toLocaleString()}</td>
+                    <td>Rp {item.harga}</td>
                     <td><Button onClick={(e) => this.onEdit(e, item)} variant="dark">edit</Button></td>
                     <td><Button onClick={(e) => this.onDelete(e, item)} variant="dark">hapus</Button></td>
                   </tr>
